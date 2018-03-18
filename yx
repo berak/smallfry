@@ -1,1 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>photogrammetric stereo</title>
+</head>
+<body>
+<div class="content">
+  <h2>photogrammetric stereo</h2>
+  <img src="_/photomertric.png">
+
 <iframe src="https://github.com/NewProggie/Photometric-Stereo/blob/b7b837a7058db9ebab8f7087b7351a2706dc4657/src/main.cpp#L109-L141">
+  </div>
+<div class="nav">
+  <a href="pose.html"> openpose models </a><br>
+  <a href="adversarial.html"> adversarial noise </a><br>
+  <a href="printnet.html"> dnn print net </a><br>
+  <a href="tts.html"> text to speech </a><br>
+  <a href="mouse.html"> mouse recorder </a><br>
+  <a href="roc.html"> roc curve </a><br>
+</div>
+</body>
+</html>
+
