@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>adversarial noise</title>
+</head>
+<body>
+<div class=content>
+  <h2>trying to fool facenet with noise ;)</h2>
+  sad as it is, we cannot backpropagate through opencv's dnn layers, <br>
+  but already a simple hillclimber is enough to demonstrate
+  adversarial noise:<br> (the "distorted" image is "I", on the right")<p>
+  <img id="zz" src="adverse.jpg"></img><br><br>
+  we extract features from the face images in the usual way, the outcome is a 128x1 float vec:<p>
+  <script src="https://gist.github.com/berak/c67575f0f21119c200e36f7467539154.js"> </script>
+  then we can start our attack, add a minimal incremental amount of noise at a time<br>
+  see how it goes. if it didn't get better, we just discard it<p>
+  after ~25000 tries, the feature distance between the 2 different persons is indeed smaller<br>
+  than the distance between the 2 images of the same person on the left.<br> WIN!
+  <script src="https://gist.github.com/berak/86b054dc0df36fc06049a0db0adb9ead.js"> </script>
+  </div>
+<div class="nav">
+  <a href="index.html"> just dont clear the background </a><br>
+  <a href="/"> photometric stereo </a><br>
+  <a href="/"> rnn experiments </a><br>
+  <a href="adversarial.html"> adversarial noise </a><br>
+</div>
+</body>
+</html>
