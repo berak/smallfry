@@ -12,12 +12,12 @@
   using a dark room, a shining sphere and a pointlight src(e.g. a pocketlight).<p>
   it's a bit limited (to small objects, indoor), but you do not need a stereo camera for this.<br>
   below are the image, the normals, and the depth map:<p>
-  <img src="_/photometric.png"></img><p>
+  <img src="img/photometric.png"></img><p>
   set them up next to each other, make an image, and split it into halves, for ~20 varying light positions<br>
   (look at the holes in the car's front window - i clearly forgot to sample some light directions !)<br>
   the algorithm will try to reconstruct normals and depth from the sampled sphere reflection on the left for the image on the right.<br>
-  <img src="_/chrome.18.png"></img>
-  <img src="_/model.18.png"></img><p>
+  <img src="img/chrome.18.png"></img>
+  <img src="img/model.18.png"></img><p>
   there is a maximum intensity point in each sphere image, we can cast a ray from there to the camera.<br>
   the inverted matrix of those light direction vectors will be used to transform the intensities at that pixel in lightspace for the normals computation:<p>
   <script src="https://gist.github.com/berak/17bef0f85bee971137ec8ab5f9451ab1.js"></script>
