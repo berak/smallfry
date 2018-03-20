@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>dct feature compression</title>
+</head>
+<body>
+<div class=content>
+  <h2>dct feature compression</h2>
+  the "curse of dimensionality" -- what can be done ?<p>
+  PCA needs to see *all* of your traindata (not feasible, some times)<br>
+  also there are mindbending <a href="https://en.wikipedia.org/wiki/Random_projection">random projections</a> and <a href="https://en.wikipedia.org/wiki/Hadamard_transform">walsh-haddamard</a><br>
+  i mostly end up using a much simpler receipe: do a dct, throw away hf (probably noise only), and idct back:<p>
+  <script src="https://gist.github.com/berak/6903d71f8eff1edb5b6c943de7894717.js"> </script>
+</div>
+<div class="nav">
+  <a href="photo-stereo.html"> photometric stereo </a><br>
+  <a href="tts.html"> text to speech </a><br>
+  <a href="mouse.html"> mouse recorder </a><br>
+  <a href="roc.html"> roc curve </a><br>
+  <a href="gba.html"> lost code </a><br>
+  <a href="cam.html"> webcam facedetect </a><br>
+  <a href="dct.html"> dct feature compression </a><br>
+</div>
+</body>
+</html>
