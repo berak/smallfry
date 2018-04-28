@@ -37,8 +37,8 @@
 					for(var c=0; c<ncols; ++c) {
 						var c4 = c*4;
 						// gray = 0.2*red + 0.7*green + 0.1*blue
-						//gray[r*ncols + c] = (2*rgba[r*ncols*4+c*4]+7*rgba[r*ncols*4+c*4+1]+1*rgba[r*ncols*4+c*4+2])/10;
-						gray[r*ncols + c] = (rgba[r4+c4] >> 2) + (rgba[r4+c4+1] >> 1) + (rgba[r4+c4+2] >> 2);
+						gray[r*ncols + c] = (2*rgba[r*ncols*4+c*4]+7*rgba[r*ncols*4+c*4+1]+1*rgba[r*ncols*4+c*4+2])/10;
+						//gray[r*ncols + c] = (rgba[r4+c4] >> 2) + (rgba[r4+c4+1] >> 1) + (rgba[r4+c4+2] >> 2);
 					}
 				}
 				return gray;
@@ -98,7 +98,7 @@
 <body onload="detectface();">
 <div class=content>
 	<center><div> some great folks <a href="https://github.com/tehnokv/picojs">ported pico to js</a> ! <br>
-		&lt; 6ms face detection in the browser ;) </div>
+		6ms face detection in the browser ;) </div>
 	<p><br><p><canvas width=640 height=480></canvas></p>
 		<div id="tim"></div>
 	</center>
