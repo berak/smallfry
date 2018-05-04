@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>vlad descriptors</title>
+</head>
+<body>
+<div class=content>
+  <h2>vlad descriptors</h2>
+  an improvement on <a href="https://gilscvblog.com/2013/08/23/bag-of-words-models-for-visual-categorization/">BagOfWords</a> descriptors; <br>
+  instead of increasing histogram bins for matching features / codewords: <br><p>
+  <img src="https://gilscvblog.files.wordpress.com/2013/08/figure41.jpg"></img><br><p>
+  we calculate the residual (the difference, 1st order moment) between the (SIFT or SURF) descriptor and it's closest dictionary entry:<p>
+  <img src="http://www.svcl.ucsd.edu/projects/attdyn/image/encoding.png" width=576 height=437></img><br><p>
+  and add them up (per dictionary entry). after extensive normalization, we get a feature in  the same size of the dictionary.<br>
+  only very coarse (kmeans) clustering is needed for this, like K=64 will do.<br>
+  (while you need a significantly large K for BoW (i've seen like 20k used), to get hold of the really <i>relevant</i> cluster centers)
+  <script src="https://gist.github.com/berak/2ef9f4f64ec387f2949b18899f44491c.js"> </script>
+</div>
+<div class="nav">
+  <a href="adversarial.html"> adversarial noise </a><br>
+  <a href="vlad.html"> vlad descriptors </a><br>
+  <a href="pico.html"> webbrowser face detection </a><br>
+  <a href="pose.html"> openpose models </a><br>
+  <a href="printnet.html"> dnn print net </a><br>
+  <a href="photo-stereo.html"> photometric stereo </a><br>
+  <a href="tts.html"> text to speech </a><br>
+</div>
+</body>
+</html>
