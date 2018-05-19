@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>adversarial noise</title>
+</head>
+<body>
+<div class=content>
+<a href="https://github.com/yoggasek/Train_Data">cats vs dogs problem </a>, dnn's rule for this kind of task, nowadays.<p>
+
+  <img src="img/cat.0.jpg"></img>&nbsp;&nbsp;
+  <img src="img/cat.1.jpg"></img>&nbsp;&nbsp;
+  <img src="img/dog.0.jpg"></img>&nbsp;&nbsp;
+  <img src="img/dog.1.jpg"><br><p><br>
+
+we could try to use <a href="https://machinelearningmastery.com/transfer-learning-for-deep-learning/">transfer learning</a> ,
+
+that is: use an existing, pretrained model, and try to teach it some new tricks !<p>
+
+we can just "pipe" our images through the network, stop it at some layer (before it would do the final classification), grab the output neurons from there, and feed our own ml classifier with this data (instead of using the "raw" images) , like this:<p>
+
+<pre>
+    (colour) image   --> DNN --> 1000 numbers  --> our own classifier (ANN_MLP for today)
+</pre>
+
+since opencv's dnn module already supports various classification models, let's try with <a href="https://arxiv.org/abs/1602.07360">squeezenet</a> (which is also small, and quite fast !)<br>
+
+it was trained on millions of images (imagenet), among them cats & dogs. so, it has "seen the world", already. ;)<br>
+
+there are 67 layers (!), here's how the last 10 look like: (i=input,o=output)<br>
+<pre>
+    fire9/squeeze1x1                       Convolution   i[1, 512, 14, 14]  o[1, 64, 14, 14]
+    fire9/relu_squeeze1x1                  ReLU          i[1, 64, 14, 14]  o[1, 64, 14, 14]
+    fire9/expand1x1                        Convolution   i[1, 64, 14, 14]  o[1, 256, 14, 14]
+    fire9/relu_expand1x1                   ReLU          i[1, 256, 14, 14]  o[1, 256, 14, 14]
+    fire9/expand3x3                        Convolution   i[1, 64, 14, 14]  o[1, 256, 14, 14]
+    fire9/relu_expand3x3                   ReLU          i[1, 256, 14, 14]  o[1, 256, 14, 14]
+    fire9/concat                           Concat        i[1, 256, 14, 14]  i[1, 256, 14, 14]  o[1, 512, 14, 14]
+    drop9                                  Dropout       i[1, 512, 14, 14]  o[1, 512, 14, 14]
+    conv10                                 Convolution   i[1, 512, 14, 14]  o[1, 1000, 14, 14]
+    relu_conv10                            ReLU          i[1, 1000, 14, 14]  o[1, 1000, 14, 14]
+    pool10                                 Pooling       i[1, 1000, 14, 14]  o[1, 1000, 1, 1]
+    prob                                   Softmax       i[1, 1000, 1, 1]  o[1, 1000, 1, 1]
+</pre>
+so, pool10 looks like a good place to tap it !<br>
+
+(1000 features are a good number, if we have ~1000 images in our dataset)<br>
+
+you'll need to download the <a href="https://raw.githubusercontent.com/DeepScale/SqueezeNet/b5c3f1a23713c8b3fd7b801d229f6b04c64374a5/SqueezeNet_v1.1/squeezenet_v1.1.caffemodel">caffemodel</a> and the <a href="https://github.com/opencv/opencv_extra/blob/master/testdata/dnn/squeezenet_v1.1.prototxt">prototxt</a> , then we can start playing <a href="https://github.com/yoggasek/Train_Data">with our cats vs dogs dataset</a><p>
+<script src="https://gist.github.com/berak/70bcf5e8240c4af4426f9eff3f42121c.js"></script>
+
+
+
+</div>
+<div class="nav">
+  <a href="transfer.html"> transfer learning </a><br>
+  <a href="adversarial.html"> adversarial noise </a><br>
+  <a href="vlad.html"> vlad descriptors </a><br>
+  <a href="pico.html"> webbrowser face detection </a><br>
+  <a href="pose.html"> openpose models </a><br>
+  <a href="printnet.html"> dnn print net </a><br>
+  <a href="photo-stereo.html"> photometric stereo </a><br>
+</div>
+</body>
+</html>

@@ -10,7 +10,7 @@
   sad as it is, we cannot backpropagate through opencv's dnn layers, <br>
   but already a simple hillclimber is enough to demonstrate adversarial noise.<br>
   (the "distorted" image is "I", on the right"): <p>
-  <img id="zz" src="img/adverse.jpg"></img><br><p>
+  <img src="img/adverse.jpg"></img><br><p>
   we extract features from the face images in the usual way, the outcome is a 128x1 float vec:<p>
   <script src="https://gist.github.com/berak/c67575f0f21119c200e36f7467539154.js"> </script>
   then we can start our attack, add a minimal incremental amount of noise at a time<br>
@@ -19,16 +19,16 @@
   than the distance between the 2 images of the same person on the left.<br> WIN!
   <script src="https://gist.github.com/berak/86b054dc0df36fc06049a0db0adb9ead.js"> </script>
   it takes more noise, but we can make it predict "beaver", while it sees an ant, even:<p>
-  <img id="zz" src="img/adverse2.jpg"></img><br><p>
+  <img src="img/adverse2.jpg"></img><br><p>
 </div>
 <div class="nav">
+  <a href="transfer.html"> transfer learning </a><br>
   <a href="adversarial.html"> adversarial noise </a><br>
   <a href="vlad.html"> vlad descriptors </a><br>
   <a href="pico.html"> webbrowser face detection </a><br>
   <a href="pose.html"> openpose models </a><br>
   <a href="printnet.html"> dnn print net </a><br>
   <a href="photo-stereo.html"> photometric stereo </a><br>
-  <a href="tts.html"> text to speech </a><br>
 </div>
 </body>
 </html>
