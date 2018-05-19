@@ -18,13 +18,15 @@ we could try to use <a href="https://machinelearningmastery.com/transfer-learnin
 
 that is: use an existing, pretrained model, and try to teach it some new tricks !<p>
 
-we can just "pipe" our images through the network, stop it at some layer (before it would do the final classification), grab the output neurons from there, and feed our own ml classifier with this data (instead of using the "raw" images) , like this:<p>
+we can just "pipe" our images through the network, stop it at some layer (before it would do the final classification),<br>
+grab the output neurons from there, and feed our own ml classifier with this data (instead of using the "raw" images) , like this:<p>
 
 <pre>
     (colour) image   --> DNN --> 1000 numbers  --> our own classifier (ANN_MLP for today)
 </pre>
 
-since opencv's dnn module already supports various classification models, let's try with <a href="https://arxiv.org/abs/1602.07360">squeezenet</a> (which is also small, and quite fast !)<br>
+since opencv's dnn module already supports various classification models, let's try with <a href="https://arxiv.org/abs/1602.07360">squeezenet</a><br>
+(which is also small, and quite fast !)<br>
 
 it was trained on millions of images (imagenet), among them cats & dogs. so, it has "seen the world", already. ;)<br>
 
