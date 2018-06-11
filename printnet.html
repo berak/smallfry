@@ -7,9 +7,18 @@
 <body>
 <div class="content">
   <h2>dnn network printout</h2>
-  print out opencv's dnn network layers.<br>
-  maybe can cut out a bit earlier ? how many output nodes are there ? let's see: <p>
-  <script src="https://gist.github.com/berak/161b220097ceba0baf013a267ae67829.js"></script>
+  an attempt to print out opencv's dnn network layers,
+  using <a href="http://www.graphviz.org/">graphviz</a> for visualization.<br>
+  maybe we can cut out a bit earlier ? how many output nodes are there ? let's see: <p>
+  <script src="https://gist.github.com/berak/35c860ee9fcbdb6e6e65bb1284f8dcf4.js"></script><p>
+  this will write a graph in the dot language, we can pipe it's output to the dot tool:
+
+  <pre>
+    dnn_dot -m=openface.nn4.small2.v1.t7 -w=96 -h=96 -v=3 | dot -Tpng > g2.png
+  </pre> <p>
+  <img src="img/g2.png">
+  <img src="img/g3.png"> <p>
+  longgraphislong ;)
   </div>
 <div class="nav">
   <a href="vlad.html"> vlad descriptors </a><br>
