@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>one shot similarity</title>
+</head>
+<body>
+<div class=content>
+  <h2>one shot similarity</h2>
+  i wanted to try the <a href="https://talhassner.github.io/home/publication/2009_ICCV"> one shot similarity kernel </a><br>
+  for same, not-same problems like the lfw challenge.<p>
+  so, we first train once on background data only, then, for each pair a,b :<p>
+   1. retrain with a added to negatives, check distance against b.<br>
+   2. do the reverse, retrain with b added to negatives, check distance against a<br>
+   3. mix results.<p>
+  here is some opencv code <br>
+  <script src="https://gist.github.com/berak/f71517359c112ecbb139cce1476095f3.js"></script><p>
+  speed improved a lot by applying <a href="https://blogs.sas.com/content/iml/2012/05/09/the-power-method.html">the power method</a> to find the largest eigenvalue, instead of a full eigen decomposition. <br>
+  so, all time spent in the inversion !<br>
+  what can be done ? <p>
+  * i don't have to invert it and multiply my vectors with A.inv() * x = y. i can use solve(A,x,y) instead.<br>
+   &nbsp;&nbsp;(still slow, but does not need the inversion)<p>
+  * instead of the solve(), i can decompose it with SVD (once) and use the backsubstitution.<br>
+   &nbsp;&nbsp;(also saves the inversion, but takes ~3times more time than a mat mult)<p><p>
+  in the end, for 120000 comparisons, using smaller features (and keep the inverse) turned out to be the best solution.
+</div>
+<div class="nav">
+  <a href="transfer.html"> transfer learning </a><br>
+  <a href="adversarial.html"> adversarial noise </a><br>
+  <a href="vlad.html"> vlad descriptors </a><br>
+  <a href="one_shot.html"> one shot similarity </a><br>
+  <a href="pico.html"> webbrowser face detection </a><br>
+  <a href="pose.html"> openpose models </a><br>
+  <a href="printnet.html"> dnn print net </a><br>
+</div>
+</body>
+</html>
