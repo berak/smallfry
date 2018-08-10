@@ -18,7 +18,7 @@
   speed improved a lot by applying <a href="https://blogs.sas.com/content/iml/2012/05/09/the-power-method.html">the power method</a> to find the largest eigenvalue, instead of a full eigen decomposition. <br>
   so, all time spent in the inversion !<br>
   what can be done ? <p>
-  * i don't have to invert it and multiply my vectors with A.inv() * x = y. i can use solve(A,x,y) instead.<br>
+  * i don't have to invert it and multiply my vectors with <code>A.inv() * x = y</code>. i can use <code>solve(A, x, y)</code> instead.<br>
    &nbsp;&nbsp;(still slow, but does not need the inversion)<p>
   * instead of the solve(), i can decompose it with SVD (once) and use the backsubstitution.<br>
    &nbsp;&nbsp;(also saves the inversion, but takes ~3times more time than a mat mult)<p><p>
