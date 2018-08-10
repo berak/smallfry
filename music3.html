@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>music !</title>
+<style>
+</style>
+<body>
+<div class=content>
+  <h2>music !</h2>
+<div id="waveform"></div>
+</div>
+<div class="nav">
+  <a href="mouse.html"> mouse recorder </a><br>
+  <a href="roc.html"> roc curve </a><br>
+  <a href="dog.html"> difference of gaussians </a><br>
+  <a href="music3.html"> music ! </a><br>
+  <a href="gba.html"> lost code </a><br>
+  <a href="cam.html"> webcam facedetect </a><br>
+  <a href="dct.html"> dct feature compression </a><br>
+</div>
+</body>
+<script type='text/javascript' src="js/wavesurfer.min.js"></script>
+<script type='text/javascript'>
+var wavesurfer = WaveSurfer.create({
+    container: '#waveform'
+});
+wavesurfer.load('cut/p52.mp3');
+wavesurfer.on('ready', function () {
+    wavesurfer.play();
+});
+
+</script>
+</html>
