@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>profiling opencv</title>
+</head>
+<body>
+<div class=content>
+  <h2>profiling opencv code</h2>
+  using some macro magic, we can get execution profiles for functions / scope blocks.<br>
+  this will print out a table (calls, per-call, total, ticks) at the end of the program<p>
+  <pre>
+#include "profile.h"
+
+void foo() {
+	PROFILE; // uses function name
+	...
+	for (int i=0; i<100; i++) {
+        PROFILEX("foo.loop"); // labelled block scope
+        ...
+	}
+}
+
+solve                          20      0.001979      0.039581            83749
+mul                            20      0.002063      0.041269            87320
+inv                             1      2.213202      2.213202          4682832
+main                            1      2.365499      2.365499          5005072
+  </pre>
+  <script src="https://gist.github.com/berak/5b6d1973121415154df5480451d5dc79.js"> </script>
+</div>
+<div class="nav">
+<a href="transfer.html"> transfer learning </a><br>
+<a href="profile.html"> profiling opencv </a><br>
+<a href="adversarial.html"> adversarial noise </a><br>
+<a href="vlad.html"> vlad descriptors </a><br>
+<a href="one_shot.html"> one shot similarity </a><br>
+<a href="pico.html"> webbrowser face detection </a><br>
+<a href="pose.html"> openpose models </a><br>
+</div>
+</body>
+</html>
