@@ -10,16 +10,16 @@
   using some macro magic, we can get execution profiles for functions / scope blocks.<br>
   this will print out a table (calls, per-call, total, ticks) at the end of the program<p>
   <pre>
-#include "profile.h"
+	#include "profile.h"
 
-void foo() {
-	PROFILE; // uses function name
-	...
-	for (int i=0; i<100; i++) {
-        PROFILEX("foo.loop"); // labelled block scope
-        ...
+	void foo() {
+	    PROFILE; // uses function name
+	    ...
+	    for (int i=0; i<100; i++) {
+	        PROFILEX("foo.loop"); // labelled block scope
+	        ...
+	    }
 	}
-}
 
 solve                          20      0.001979      0.039581            83749
 mul                            20      0.002063      0.041269            87320
