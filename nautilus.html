@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>nautilus</title>
+</head>
+<body>
+<div class=content>
+  <p><br><p><center><canvas id="c" width="128" height="128" border="2px"></canvas></center><p><br><p><br><p><br><p>
+  <div id="code"><pre style="color:#ccc;">
+		var M=Math,C=M.cos,F=M.floor,W=120,Z=0.06,O=0.3,R=15,X=7,T=0,N=0.01,D=0.29,A=0.5,L=100;
+		V=document.getElementById("c");V.width=V.height=W;c=V.getContext("2d");c.fillRect(0,0,W,W);
+		c.fillStyle="rgb(200,200,200)";c.f=c.fillText;d=c.getImageData(0,0,W,W);p=d.data;t=1;
+		t7=t6=t5=t4=0;onkeydown=function(o){K=o.which;O+=K==50?N:K==49?-N:0;Z+=K==52?N:K==51?-N:0;
+		R+=K==54?1:K==53?-1:0;X+=K==56?1:K==55?-1:0;D+=K==48?N:K==57?-N:0;T=30}; function e(o,s,v){
+		l=C(C(o+P)*o-C(s*3+Q)*s);k=C(J*v/3*o-U*s);n=C(o+s+v+t);return l*l+k*k+n*n-1} setInterval(
+		function(){t+=D;J=C(t/4);Q=t/5;P=t/6;U=C(t/7);for(i=z=0;i<W;i++){
+		y=A-i/W;H=y*Z;for(j=0;j<W;j++){f=x=A-j/W;g=y;h=1;G=x*Z;I=Z;u=0.2;m=0.4;for(q=r=0;q>=0&&r<R;r++){
+		q=e(f,g,h)-m;q*=10;f+=q*G;g+=q*H;h+=q*I;u+=q*0.0020}E=e(f+0.1,g+0.1,h+0.1);for(r=a=0;r<X;r++){
+		b=4*(e(f+A*C(1.1*r),g+A*C(1.6*r),h+A*C(1.4*r))-m);a+=b>1?1:b<0?0:b}a*=255*O;p[z++]=a*u+E*0.3;
+		p[z++]=a*A+E*0.6;p[z++]=a*A+E;z++}}c.putImageData(d,0,0);
+		--T>0&&c.f(F(O*L)+" "+F(Z*L)+" "+R+" "+X+" "+F(D*L),9,L)},30);
+	</pre></div>
+</div>
+<div class="nav">
+<a href="music3.html"> music ! </a><br>
+<a href="faces.html"> bored .. </a><br>
+<a href="ray.html"> ray march on </a><br>
+<a href="gba.html"> lost code </a><br>
+<a href="nautilus.html"> nautilus </a><br>
+<a href="dct.html"> dct feature compression </a><br>
+<a href="music2.html"> music ! </a><br>
+</div>
+<script type="text/javascript">
+var M=Math,C=M.cos,F=M.floor,W=120,Z=0.06,O=0.3,R=15,X=7,T=0,N=0.01,D=0.29,A=0.5,L=100;V=document.getElementById("c");V.width=V.height=W;c=V.getContext("2d");c.fillRect(0,0,W,W);c.fillStyle="rgb(200,200,200)";c.f=c.fillText;d=c.getImageData(0,0,W,W);p=d.data;t=1;t7=t6=t5=t4=0;onkeydown=function(o){K=o.which;O+=K==50?N:K==49?-N:0;Z+=K==52?N:K==51?-N:0;R+=K==54?1:K==53?-1:0;X+=K==56?1:K==55?-1:0;D+=K==48?N:K==57?-N:0;T=30}; function e(o,s,v){l=C(C(o+P)*o-C(s*3+Q)*s);k=C(J*v/3*o-U*s);n=C(o+s+v+t);return l*l+k*k+n*n-1} setInterval(function(){t+=D;J=C(t/4);Q=t/5;P=t/6;U=C(t/7);for(i=z=0;i<W;i++){y=A-i/W;H=y*Z;for(j=0;j<W;j++){f=x=A-j/W;g=y;h=1;G=x*Z;I=Z;u=0.2;m=0.4;for(q=r=0;q>=0&&r<R;r++){q=e(f,g,h)-m;q*=10;f+=q*G;g+=q*H;h+=q*I;u+=q*0.0020}E=e(f+0.1,g+0.1,h+0.1);for(r=a=0;r<X;r++){b=4*(e(f+A*C(1.1*r),g+A*C(1.6*r),h+A*C(1.4*r))-m);a+=b>1?1:b<0?0:b}a*=255*O;p[z++]=a*u+E*0.3;p[z++]=a*A+E*0.6;p[z++]=a*A+E;z++}}c.putImageData(d,0,0);--T>0&&c.f(F(O*L)+" "+F(Z*L)+" "+R+" "+X+" "+F(D*L),9,L)},30);
+</script>
+</body>
+</html>
