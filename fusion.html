@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>image fusion</title>
+</head>
+<body>
+<div class=content>
+  <h2>image fusion</h2>
+  how to find a good mix for e.g. PET and MRI images ?<br><p>
+  <img src="img/fu_col.png" title="PET">
+  <img src="img/fu_mri.png" title="MRI"><p>
+  there are a ton of existing ideas already, the most obvious is averaging :<br>
+  <pre>
+    Mat fuse_avg(const Mat &im1, const Mat &im2)
+    {
+        Mat fusion;
+        addWeighted(im1, 0.5, im2, 0.5, 0, fusion);
+        return fusion;
+    }
+  </pre><p>
+  <img src="img/fu_avg.png" title="Average"><p>
+
+  PCA fusing also looks good :
+  <pre>
+    Mat fuse_pca(const Mat &im1, const Mat &im2)
+    {
+        Mat c1 = im1.reshape(1, im1.total() * im1.channels());
+        Mat c2 = im2.reshape(1, im2.total() * im1.channels());
+
+        Mat dat;
+        hconcat(c1,c2,dat);
+        dat.convertTo(dat,CV_32F);
+
+        PCA pca(dat, noArray(), 0, 1);
+        Mat_<double> ev = pca.eigenvectors;
+        Mat_<double> mu = pca.mean;
+
+        Mat fusion;
+        addWeighted(c1-mu(0,0), ev(0,0), c2-mu(0,1), ev(0,1), 0, fusion);
+        return fusion.reshape(im1.channels(), im1.rows);
+    }
+  </pre>
+  <img src="img/fu_pca.png" title="PCA"><p>
+
+  </div>
+<div class="nav">
+<a href="transfer.html"> transfer learning </a><br>
+<a href="vlad.html"> vlad descriptors </a><br>
+<a href="one_shot.html"> one shot similarity </a><br>
+<a href="profile.html"> profiling opencv </a><br>
+<a href="pose.html"> openpose models </a><br>
+<a href="fusion.html"> image fusion </a><br>
+<a href="printnet.html"> dnn print net </a><br>
+<a href="prolog.html"> owl positive </a><br>
+<a href="music.html"> music ! </a><br>
+<a href="photo-stereo.html"> photometric stereo </a><br>
+<a href="lfw.html"> lfw mean stddev </a><br>
+</div>
+</body>
+</html>
