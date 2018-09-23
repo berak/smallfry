@@ -1,18 +1,16 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href='style.css'>
-<title>the mean and stdev images of the lfw database</title>
-</head>
+<title>music !</title>
+<style>
+</style>
 <body>
 <div class=content>
-  <p><br><p><center><img src="img/lfw2mean.png" title="mean"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  	<img src="img/lfw2stdev.png" title="stdev"></center><p><br><p>
-  sometimes you need to "whiten" the dataset, like: <br><pre><code>omg -= mean;
-omg /= stddev;</code></pre><br> apart from that, i think it's something aesthetic.<br>
+  <h2>music !</h2>
+<div id="waveform"></div>
 </div>
 <div class="nav">
-<a href="fusion.html"> image fusion </a><br>
 <a href="music.html"> music ! </a><br>
 <a href="printnet.html"> dnn print net </a><br>
 <a href="prolog.html"> owl positive </a><br>
@@ -23,4 +21,18 @@ omg /= stddev;</code></pre><br> apart from that, i think it's something aestheti
 <a href="tts.html"> text to speech </a><br>
 <a href="mouse.html"> mouse recorder </a><br>
 <a href="roc.html"> roc curve </a><br>
-</div></body></html>
+<a href="dog.html"> difference of gaussians </a><br>
+</div>
+</body>
+<script type='text/javascript' src="js/wavesurfer.min.js"></script>
+<script type='text/javascript'>
+var wavesurfer = WaveSurfer.create({
+    container: '#waveform'
+});
+wavesurfer.load('cut/p17.mp3');
+wavesurfer.on('ready', function () {
+    wavesurfer.play();
+});
+
+</script>
+</html>
