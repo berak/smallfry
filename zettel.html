@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>zettelkasten</title>
+<script>
+    function link(txt) {
+        ajax('zettel/'+txt,'GET',render);
+        document.getElementById("txt").value = txt;
+     }
+    function repl(txt, status) {
+        if (status==200) {
+        var out = document.getElementById("o_con");
+        var line = out.innerHTML;
+        out.innerHTML = line.replace(txt,"<a href=\"javascript:link('"+txt+"');\">"+txt+"</a>");
+        }
+    }
+    function render(txt, status) {
+        var arr = txt.replace(".","").split(" ");
+        var err = document.getElementById("e_con");
+        var out = document.getElementById("o_con");
+        out.innerHTML = txt + "<br>";
+        //err.innerHTML = arr.length + " : " + arr.join(" ");
+        if (status == 404) {
+            out.innerHTML = "nein.<br>"
+            return;
+        }
+        if (status > 200)
+            return;
+        for (a in arr) {
+            var word = arr[a];
+            // err.innerHTML += a + " ! " + word + "<br>";
+            if (word.length>3)
+                ajax("zettel/"+word,'HEAD',repl)
+        }
+    }
+    function ajax(url, method, cb) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url, true);
+        xhr.setRequestHeader('Content-Type', 'text/html');
+        xhr.onreadystatechange = function(e) {
+            //var out = document.getElementById("e_con");
+            //out.innerHTML += this.readyState + " " + url + "<br>";
+            //alert(this.readyState)
+          if ( this.readyState == 4 ) {
+              var msg = url.substring(7);
+              if (this.response)
+                  msg = this.response;
+              cb(msg, this.status);
+          }
+        }
+        xhr.send()
+    }
+
+    function loadZettel() {
+        var word = document.getElementById("txt").value
+        if (word.length < 3)
+            return;
+        var url = "zettel/" + word;
+        //alert(url);
+        ajax(url, 'GET', render);
+    }
+</script>
+</head>
+<body>
+<div class=content>
+  <h2>zettel</h2>
+    <div id="i_con">
+
+        <input id="txt" type="text" onChange="loadZettel();">
+
+    </div>
+    <p>
+    <div id="o_con">
+    </div>
+    <div id="e_con">
+    </div>
+</div>
+<div class="nav">
+<a href="mouse.html"> mouse recorder </a><br>
+<a href="roc.html"> roc curve </a><br>
+<a href="dog.html"> difference of gaussians </a><br>
+<a href="music3.html"> music ! </a><br>
+<a href="faces.html"> bored .. </a><br>
+<a href="ray.html"> ray march on </a><br>
+<a href="gba.html"> lost code </a><br>
+<a href="nautilus.html"> nautilus </a><br>
+<a href="dct.html"> dct feature compression </a><br>
+<a href="music2.html"> music ! </a><br>
+<a href="zettel.html"> zettelkasten </a><br>
+</div>
+</body>
+<!--script type='text/javascript' src='js/ccv.js'></script>
+<script type='text/javascript' src='js/face.js'></script-->
+</html>
