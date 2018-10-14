@@ -17,19 +17,16 @@
     }
     function render(txt, status) {
         var arr = txt.replace(".","").split(" ");
-        var err = document.getElementById("e_con");
         var out = document.getElementById("o_con");
         out.innerHTML = txt + "<br>";
-        if (status == 404) {
-            out.innerHTML = "nein.<br>"
-            return;
-        }
+        if (status == 404)
+            out.innerHTML = "nein.<br>";
         if (status > 200)
             return;
         for (a in arr) {
             var word = arr[a];
             if (word.length>3)
-                ajax("zettel/"+word,'HEAD',repl)
+                ajax("zettel/"+word,'HEAD',repl);
         }
     }
     function ajax(url, method, cb) {
@@ -47,7 +44,7 @@
         xhr.send()
     }
     function loadZettel() {
-        var word = document.getElementById("txt").value
+        var word = document.getElementById("txt").value;
         if (word.length < 3)
             return;
         var url = "zettel/" + word;
@@ -57,15 +54,12 @@
 </head>
 <body>
 <div class=content>
-  <h2>zettel</h2>
+  <h2 title="abusing a webserver as a wiki database">zettel</h2>
     <div id="i_con">
         <input id="txt" type="text" onChange="loadZettel();">
     </div>
     <p>
     <div id="o_con">
-    </div>
-    <div id="e_con">
-    </div>
 </div>
 <div class="nav">
 <a href="mouse.html"> mouse recorder </a><br>
