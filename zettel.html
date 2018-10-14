@@ -4,6 +4,8 @@
 <link rel="stylesheet" href='style.css'>
 <title>zettelkasten</title>
 <script>
+    var cache = [];
+
     function link(txt) {
         ajax('zettel/'+txt,'GET',render);
         document.getElementById("txt").value = txt;
@@ -13,7 +15,12 @@
             var out = document.getElementById("o_con");
             var line = out.innerHTML;
             out.innerHTML = line.replace(txt,"<a href=\"javascript:link('"+txt+"');\">"+txt+"</a>");
+            cache.push(txt);
         }
+    }
+    function nop(txt, status) {
+        var out = document.getElementById("o_con");
+        out.innerHTML = "yes."
     }
     function render(txt, status) {
         var arr = txt.replace(".","").split(" ");
@@ -25,11 +32,16 @@
             return;
         for (a in arr) {
             var word = arr[a];
-            if (word.length>3)
-                ajax("zettel/"+word,'HEAD',repl);
+            if (word.length<4)
+                continue;
+            if (cache.find(function(arg) {return word==arg;})) {
+                repl(word,200);
+                continue;
+            }
+            ajax("zettel/"+word,'HEAD',repl);
         }
     }
-    function ajax(url, method, cb) {
+    function ajax(url, method, cb, data) {
         var xhr = new XMLHttpRequest();
         xhr.open(method, url, true);
         xhr.setRequestHeader('Content-Type', 'text/html');
@@ -41,13 +53,18 @@
               cb(msg, this.status);
             }
         }
-        xhr.send()
+        xhr.send(data)
     }
     function loadZettel() {
         var word = document.getElementById("txt").value;
-        if (word.length < 3)
+        if (word.length < 4)
             return;
         var url = "zettel/" + word;
+        var lw = word.split(":")
+        if (lw.length==2 && lw[0].length<20) {
+            url = "zettel/" + lw[0];
+            ajax(url,'PUT', nop, lw[1])
+        }
         ajax(url, 'GET', render);
     }
 </script>
