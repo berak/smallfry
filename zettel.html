@@ -5,7 +5,6 @@
 <title>zettelkasten</title>
 <script>
     var cache = [];
-
     function link(txt) {
         ajax('zettel/'+txt,'GET',render);
         document.getElementById("txt").value = txt;
@@ -35,7 +34,7 @@
             if (word.length<4)
                 continue;
             if (cache.find(function(arg) {return word==arg;})) {
-                repl(word,200);
+                repl(word, 200);
                 continue;
             }
             ajax("zettel/"+word,'HEAD',repl);
@@ -63,7 +62,7 @@
         var lw = word.split(":")
         if (lw.length==2 && lw[0].length<20) {
             url = "zettel/" + lw[0];
-            ajax(url,'PUT', nop, lw[1])
+            ajax(url, 'PUT', nop, lw[1])
         }
         ajax(url, 'GET', render);
     }
@@ -71,12 +70,9 @@
 </head>
 <body>
 <div class=content>
-  <h2 title="abusing a webserver as a wiki database">zettel</h2>
-    <div id="i_con">
-        <input id="txt" type="text" onChange="loadZettel();">
-    </div>
-    <p>
-    <div id="o_con">
+  <h2 title="abusing github as a wiki database (input from gutenberg)">zettel</h2>
+  <div id="i_con"> <input id="txt" type="text" onChange="loadZettel();"> </div><p>
+  <div id="o_con"></div>
 </div>
 <div class="nav">
 <a href="mouse.html"> mouse recorder </a><br>
