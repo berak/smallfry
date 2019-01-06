@@ -12,17 +12,17 @@
   <pre>
 	#include "profile.h"
 
-	void foo() {
+	void solve() {
 	    PROFILE; // uses function name
 	    ...
 	    for (int i=0; i<100; i++) {
-	        PROFILEX("foo.loop"); // labelled block scope
+	        PROFILEX("solve.iter"); // labelled block scope
 	        ...
 	    }
 	}
 
 solve                          20      0.001979      0.039581            83749
-mul                            20      0.002063      0.041269            87320
+solve.iter                     2000    0.002063      0.041269            87320
 inv                             1      2.213202      2.213202          4682832
 main                            1      2.365499      2.365499          5005072
   </pre>
@@ -36,7 +36,7 @@ main                            1      2.365499      2.365499          5005072
 <a href="profile.html"> profiling opencv </a><br>
 <a href="pose.html"> openpose models </a><br>
 <a href="fusion.html"> image fusion </a><br>
-<a href="music.html"> music ! </a><br>
+<a href="music4.html"> music ! </a><br>
 <a href="printnet.html"> dnn print net </a><br>
 <a href="prolog.html"> owl positive </a><br>
 <a href="photo-stereo.html"> photometric stereo </a><br>
