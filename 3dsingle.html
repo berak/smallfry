@@ -2,18 +2,18 @@
 <html>
 <head>
 <link rel="stylesheet" href='style.css'>
-<title>dnn edge detection</title>
+<title>3d from single images</title>
 </head>
 <body>
 <div class=content>
-  <h2>dnn edge detection</h2>
-  nowadays, it has networks for anything ;)<br><p>
-  <img src="img/fashion_02082017_basquait_alexis_adler_3-1.jpg" title="input"> &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="img/basquiat_edges.jpg" title="output"><br><p>
-  this also needs implementing a custom, Crop layer (taken from the python sample).<br><p>
-  <a href=""> here's the model</a> and <a href=""> the prototxt </a> for it.<br>
-<script src="https://gist.github.com/berak/1c97115b3b343f1e9440bb22cf77fc76.js"></script>
-  </div>
+  <h2>3d from single images</h2>
+  i'd never expected to <a href="https://github.com/shubhtuls/factored3d">see this come true</a><br><p>
+  <img src="img/room0.png"></img> <br>
+  <img src="img/snapshot00.png"></img><br><p>
+  it is using <a href="https://github.com/pdollar/edges">edge boxes</a> for the original segmentation proposals<br><p>
+   (currently run from matlab, baaa) maybe we can use opencv's implementation, and make some online tool from it ;)<br><p>
+  <img src="img/factored3d.jpg"></img><br><p>
+</div>
 <div class="nav">
 <a href="dnn_edge.html"> dnn edge detection </a><br>
 <a href="3dsingle.html"> 3d from single images </a><br>
