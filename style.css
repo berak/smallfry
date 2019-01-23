@@ -29,7 +29,11 @@ body {
     border: 0;
 }
 pre {
-    color: #333;
+    color: #888;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    margin-left: 15px;
 }
 .content {
     margin-top: 10px;
