@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>headpose</title>
+</head>
+<body>
+<div class="content">
+  <h2>headpose</h2>
+  <b> problem :
+  derive the <a href="http://answers.opencv.org/question/207116/how-to-calculate-the-angle-between-camera-and-a-person/">pose of a human head with respect to the camera :</a><br><p>
+  <img src="http://answers.opencv.org/upfiles/1547610017963799.png"></img><br><p>
+  <h3> plan B: derive from <a href="https://lirias.kuleuven.be/retrieve/376252">profilefaces</a>:
+  </h3>
+  the idea is: the detection weights for the profile cascades are nicecly correlated to the view angle.<br>
+  we can try to determine the angle from 2 cascade detections:<br>
+  <code> angle = -90*weights_left + 90*weights_right</code><br>
+  	<pre>
+std::vector&lt;cv::Rect&gt; faces_right,faces_left;
+std::vector&lt;int&gt; lvl_right,lvl_left;
+std::vector&lt;double&gt; weights_right,weights_left;
+// right face side, using profile cascade
+profile.detectMultiScale(gray, faces_right, lvl_right, weights_right, 1.2, 1, 0, cv::Size(30, 30), Size(), true);
+// flip, and apply again for left one
+flip(gray,gray,1);
+profile.detectMultiScale(gray, faces_left, lvl_left, weights_left, 1.2, 1, 0, cv::Size(30, 30), Size(), true);
+float angle = 0; // formula from paper: a=-90*l+90*r ;)
+if (weights_right.size()&gt;0 && weights_right[0]&gt;0)
+    angle += 90 * weights_right[0] / 4;
+if (weights_left.size() && weights_left[0]&gt;0)
+    angle += -90 * weights_left[0] / 4;
+cout &lt;&lt; angle &lt;&lt; endl;
+</pre>
+<h3> plan A is ofc.-- use solvePnp(): </h3>
+i will need 3d reference points, sampled at the position of the 2d landmarks: <p>
+<img src="img/meanI.png"></img>
+<img src="img/head1.png"></img> <p>
+ i'll try with <a href="https://raw.githubusercontent.com/kurnianggoro/GSOC2017/master/data/lbfmodel.yaml">FacemarkLBF</a> here:
+<pre>
+// create and load the facemarks model
+cv::Ptr&lt;cv::face::Facemark> facemark;
+facemark = cv::face::createFacemarkLBF();
+facemark->loadModel("landmarkslbf.yaml");
+
+// load precalculated 68 3d points from file
+std::vector&lt;cv::Point3d&gt; pts3d;
+cv::FileStorage fs2("points3d.yml",0);
+fs2["points"] &gt;&gt; pts3d;
+fs2.release();
+</pre><br>
+then for each image, detect a face, then get the current landmarks:<br>
+
+<pre>
+std::vector&lt;cv::Rect&gt; rects;
+face_cascade.detectMultiScale(gray_img, faces, 1.4, 2, cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30));
+
+std::vector&lt;cv::Rect&gt; faces(1,rects[0]);
+std::vector&lt; std::vector&lt;cv::Point2f&gt; &gt; shapes;
+facemark-&gt;fit(gray_img,faces,shapes)
+
+std::vector&lt;cv::Point2d&gt; &pts2d;
+for(size_t k=0; k&lt;shapes[0].size(); k++)
+    pts2d.push_back(shapes[0][k]);
+</pre><br>
+
+now we can apply solvePnP:
+
+<pre>
+// if you did not calibrate it, use a camMatrix based on img size:
+cv::Mat rvec,tvec;
+cv::Mat camMatrix;
+int max_d = std::max(s.width,s.height);
+camMatrix = (cv::Mat_&lt;double&gt;(3,3) &lt;&lt;
+    max_d,   0, s.width/2.0,
+    0,     max_d, s.height/2.0,
+    0,   0,        1.0);
+
+// 2d -> 3d correspondence
+cv::solvePnP(pts3d, pts2d, camMatrix, cv::Mat(1,4,CV_64F,0.0), rvec, tvec, false, cv::SOLVEPNP_EPNP);
+</pre><br>
+  <img src="img/headpose2.png"></img><p>
+<a href="https://github.com/berak/opencv_smallfry/blob/master/headpose/pose2.cpp"> the whole code & data is here </a><br>
+  </div>
+<div class="nav">
+<a href="dnn_edge.html"> dnn edge detection </a><br>
+<a href="3dsingle.html"> 3d from single images </a><br>
+<a href="headpose.html"> headpose </a><br>
+<a href="transfer.html"> transfer learning </a><br>
+<a href="vlad.html"> vlad descriptors </a><br>
+<a href="one_shot.html"> one shot similarity </a><br>
+<a href="profile.html"> profiling opencv </a><br>
+<a href="pose.html"> openpose models </a><br>
+<a href="fusion.html"> image fusion </a><br>
+<a href="music4.html"> music ! </a><br>
+<a href="printnet.html"> dnn print net </a><br>
+</div>
+</body>
+</html>
