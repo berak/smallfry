@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>xowl</title>
+<style>
+#o_container {
+    margin: 0px auto;
+    width: 400px;
+    height: 400px;
+    border: 10px #333 solid;
+}
+#container {
+    margin: 0px auto;
+    width: 240px;
+    height: 160px;
+    border: 10px #333 solid;
+    visibility:hidden;
+}
+#videoElement {
+    width: 240px;
+    height: 160px;
+    background-color: #666;
+    visibility:hidden;
+}
+</style>
+<body>
+<div class=content>
+  <h2>xowl</h2>
+    <div id="o_container">
+        <canvas id="o_can"  height="400" width="400"></canvas>
+    </div>
+    <div id="container">
+        <canvas id="can"  height="160" width="240"></canvas>
+    </div>
+    <video autoplay="true" id="videoElement">
+    </video>
+</div>
+<div class="nav">
+<a href="dnn_edge.html"> dnn edge detection </a><br>
+<a href="3dsingle.html"> 3d from single images </a><br>
+<a href="headpose.html"> headpose </a><br>
+<a href="transfer.html"> transfer learning </a><br>
+<a href="vlad.html"> vlad descriptors </a><br>
+<a href="xowl.html"> xowl </a><br>
+<a href="one_shot.html"> one shot similarity </a><br>
+<a href="profile.html"> profiling opencv </a><br>
+<a href="pose.html"> openpose models </a><br>
+<a href="fusion.html"> image fusion </a><br>
+<a href="music4.html"> music ! </a><br>
+</div>
+<img id="owl" src="img/o_no_eyes.png" style="visibility:hidden;"/>
+<img id="eye" src="img/o_eye.png" style="visibility:hidden;"/>
+</body>
+<script>
+    var video  = document.getElementById("videoElement");
+    var canvas = document.getElementById("can");
+    var o_can  = document.getElementById("o_can");
+    var ctx    = canvas.getContext("2d");
+    var o_ctx  = o_can.getContext("2d");
+    var e_l = [66,85];
+    var e_r = [130,85];
+    var ecx = eye.width/2;
+    var ecy = eye.height/2;
+
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+    if (navigator.getUserMedia) {
+        navigator.getUserMedia({video: true}, function(stream) { video.src = window.URL.createObjectURL(stream); }, alert);
+        video.addEventListener('play', function() {
+            vidInterval = setInterval(fdetect,60);
+        });
+    }
+
+    var M = new Array(9*9);
+    for (i=0;i<9*9;i++) M[i]=0;
+
+    var old = new Array(400*400*4);
+    for (i=0;i<old.length;i++) old[i]=0;
+
+    var dx=0, dy=0
+    function fdetect() {
+        var imgData=ctx.getImageData(0,0,canvas.width,canvas.height);
+        var data = imgData.data;
+        var stride = 4 * canvas.width;
+        var pix = canvas.width * canvas.height * 4;
+        var maxx=0,maxy=0;
+        var cw=(canvas.width/9)
+        var ch=(canvas.height/9)
+        console.log(canvas.width , canvas.height, cw)
+        var i=1; // start on green
+        for (var j=0; j<canvas.height; j++) {
+            for (var k=0; k<canvas.width; k++) {
+                var x = Math.floor(k/cw)
+                var y = Math.floor(j/ch)
+                var d = Math.abs(old[i] - data[i]);
+                M[y*9+x] *= 0.9;
+                M[y*9+x] += 0.1 * d;
+                old[i] = data[i];
+                i += 4;
+            }
+        }
+        var bestx=0;
+        var besty=0;
+        var best=-99999999;
+        for (var i=0;i<9;i++) {
+            for (var j=0; j<9; j++) {
+                var v = M[i*9+j];
+                if (v>best) {
+                    best=v;
+                    bestx=j;
+                    besty=i;
+                }
+            }
+        }
+        var _dx = 0, _dy = 0;
+        if (best>0.75) {
+            _dx = (4 - bestx);
+            _dy = (besty - 4);
+        }
+        dx = dx * 0.95 + _dx * 0.05;
+        dy = dy * 0.95 + _dy * 0.05;
+        var offx = 0.4 * (dx-1) * ecx;
+        var offy = 0.4 * (dy-1) * ecy;
+
+        var elx = 2*(e_l[0]-ecx) + offx;
+        var ely = 2*(e_l[1]-ecy) + offy;
+        var erx = 2*(e_r[0]-ecx) + offx;
+        var ery = 2*(e_r[1]-ecy) + offy;
+        //console.log("best",bestx,besty,best, offx,offy)
+        o_ctx.drawImage(owl, 0, 0, o_can.width, o_can.height);
+        o_ctx.drawImage(eye, elx, ely, eye.width*2, eye.height*2);
+        o_ctx.drawImage(eye, erx, ery, eye.width*2, eye.height*2);
+        //console.log(elx,ely,erx,ery);
+
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        for (i=0;i<9*9;i++) M[i] *= 0.75;
+    }
+
+</script>
+</html>
