@@ -10,7 +10,7 @@
   <b> problem :
   derive the <a href="http://answers.opencv.org/question/207116/how-to-calculate-the-angle-between-camera-and-a-person/">pose of a human head with respect to the camera :</a><br><p>
   <img src="http://answers.opencv.org/upfiles/1547610017963799.png"></img><br><p>
-  <h3> plan B: derive from <a href="https://lirias.kuleuven.be/retrieve/376252">profilefaces</a>:
+  <h3> plan B: derive the angle from <a href="https://lirias.kuleuven.be/retrieve/376252">profilefaces</a>:
   </h3>
   the idea is: the detection weights for the profile cascades are nicecly correlated to the view angle.<br>
   we can try to determine the angle from 2 cascade detections:<br>
@@ -33,8 +33,8 @@ cout &lt;&lt; angle &lt;&lt; endl;
 </pre>
 <h3> plan A is ofc.-- use solvePnp(): </h3>
 i will need 3d reference points, sampled at the position of the 2d landmarks: <p>
-<img src="img/meanI.png"></img>
-<img src="img/head1.png"></img> <p>
+<img src="img/head1.png"c></img>
+<img src="img/headpose2.png" width=320 height=320></img>  <p>
  i'll try with <a href="https://raw.githubusercontent.com/kurnianggoro/GSOC2017/master/data/lbfmodel.yaml">FacemarkLBF</a> here:
 <pre>
 // create and load the facemarks model
@@ -78,7 +78,6 @@ camMatrix = (cv::Mat_&lt;double&gt;(3,3) &lt;&lt;
 // 2d -> 3d correspondence
 cv::solvePnP(pts3d, pts2d, camMatrix, cv::Mat(1,4,CV_64F,0.0), rvec, tvec, false, cv::SOLVEPNP_EPNP);
 </pre><br>
-  <img src="img/headpose2.png"></img><p>
 <a href="https://github.com/berak/opencv_smallfry/blob/master/headpose/pose2.cpp"> the whole code & data is here </a><br>
   </div>
 <div class="nav">
@@ -87,12 +86,12 @@ cv::solvePnP(pts3d, pts2d, camMatrix, cv::Mat(1,4,CV_64F,0.0), rvec, tvec, false
 <a href="headpose.html"> headpose </a><br>
 <a href="transfer.html"> transfer learning </a><br>
 <a href="vlad.html"> vlad descriptors </a><br>
+<a href="xowl.html"> xowl </a><br>
 <a href="one_shot.html"> one shot similarity </a><br>
 <a href="profile.html"> profiling opencv </a><br>
 <a href="pose.html"> openpose models </a><br>
 <a href="fusion.html"> image fusion </a><br>
 <a href="music4.html"> music ! </a><br>
-<a href="printnet.html"> dnn print net </a><br>
 </div>
 </body>
 </html>
