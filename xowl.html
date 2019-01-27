@@ -79,6 +79,7 @@
 
     var dx=0, dy=0
     function fdetect() {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         var imgData=ctx.getImageData(0,0,canvas.width,canvas.height);
         var data = imgData.data;
         var stride = 4 * canvas.width;
@@ -86,7 +87,7 @@
         var maxx=0,maxy=0;
         var cw=(canvas.width/9)
         var ch=(canvas.height/9)
-        console.log(canvas.width , canvas.height, cw)
+        //console.log(canvas.width , canvas.height, cw)
         var i=1; // start on green
         for (var j=0; j<canvas.height; j++) {
             for (var k=0; k<canvas.width; k++) {
@@ -126,13 +127,11 @@
         var ely = 2*(e_l[1]-ecy) + offy;
         var erx = 2*(e_r[0]-ecx) + offx;
         var ery = 2*(e_r[1]-ecy) + offy;
-        //console.log("best",bestx,besty,best, offx,offy)
+        console.log("best",bestx,besty,best, offx,offy)
         o_ctx.drawImage(owl, 0, 0, o_can.width, o_can.height);
         o_ctx.drawImage(eye, elx, ely, eye.width*2, eye.height*2);
         o_ctx.drawImage(eye, erx, ery, eye.width*2, eye.height*2);
         //console.log(elx,ely,erx,ery);
-
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         for (i=0;i<9*9;i++) M[i] *= 0.75;
     }
