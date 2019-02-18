@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>dnn facedetection</title>
+</head>
+<body>
+<div class=content>
+  <h2>dnn facedetection</h2>
+  <h4>1. SSD</h4><br>
+  opencv's uint8 model is only 2.6 mb !<br> and it is as straightforward as it looks:
+  <pre>
+	dnn::Net net = dnn::readNetFromTensorflow("opencv_face_detector_uint8.pb","opencv_face_detector.pbtxt");
+        Mat res = net.forward("detection_out");
+
+        Mat faces(res.size[2],res.size[3], CV_32F, res.ptr<float>());
+        for (int i=0; i<faces.rows; i++)
+        {
+            float *data = faces.ptr<float>(i);
+            float batch = data[0];
+            float confidence = data[2];
+            if (confidence > confThreshold)
+            {
+                int left = (int)(data[3] * f.cols);
+                int top = (int)(data[4] * f.rows);
+                int right = (int)(data[5] * f.cols);
+                int bottom = (int)(data[6] * f.rows);
+                int classId = (int)(data[1]) - 1;  // Skip 0th background class id.
+                ...
+  </pre><br>
+  <h4>2. <a href="https://kpzhang93.github.io/MTCNN_face_detection_alignment/index.html">mtcnn</a> (using opencv's dnn module)</h4>
+  <img src="img/mtcnn.png" title="webcam"></img> <p>
+  a <a href="https://github.com/berak/mtcnn-cpp/blob/opencv4_dnn/face_detector.cpp">3 step process</a>, using 3 seperate (caffe) networks:<br>
+  <p>
+  <img src="img/mtcnn_1.png" title="step1"></img> &nbsp; &nbsp;
+  <img src="img/mtcnn_2.png" title="step2"></img> &nbsp; &nbsp;
+  <img src="img/mtcnn_3.png" title="step3"></img> <br>
+  <ul><li> 1. grab detection candidates from an image (scale) pyramid</li>
+  	<li> 2. refine boxes regression</li>
+  	<li> 3. derive 5 principal face landmarks (eyes, nose, mouth corners)
+  	</ul>
+  	<p>
+  	<h4>3. <a href="https://github.com/richipower/PCN-opencv">PCN</a> </h4>
+  	<a href="https://github.com/Jack-CV/FaceKit"> original caffe code and model  from here</a><br><p>
+  	<img src="https://raw.githubusercontent.com/Jack-CV/FaceKit/master/PCN/result/cropFace.png" height=240 width=900></img>
+  </div>
+<div class="nav">
+<a href="dnn_edge.html"> dnn edge detection </a><br>
+<a href="3dsingle.html"> 3d from single images </a><br>
+<a href="dnn_face.html"> dnn face detection </a><br>
+<a href="headpose.html"> headpose </a><br>
+<a href="transfer.html"> transfer learning </a><br>
+<a href="vlad.html"> vlad descriptors </a><br>
+<a href="xowl.html"> xowl </a><br>
+<a href="one_shot.html"> one shot similarity </a><br>
+<a href="profile.html"> profiling opencv </a><br>
+<a href="pose.html"> openpose models </a><br>
+<a href="fusion.html"> image fusion </a><br>
+</div>
+</body>
+</html>
