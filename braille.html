@@ -1,0 +1,79 @@
+<!DOCTYPE HTM">
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>braille</title>
+<script>
+var dic = {
+    " " : "\u2830",
+    "a" : "\u2801", "b" : "\u2803", "c" : "\u2809", "d" : "\u2819", "e" : "\u2811",
+    "f" : "\u280b", "g" : "\u281b", "h" : "\u2813", "i" : "\u280a", "j" : "\u281a",
+    "k" : "\u2805", "l" : "\u2807", "m" : "\u280d", "n" : "\u281d", "o" : "\u2815",
+    "p" : "\u280f", "q" : "\u281f", "r" : "\u2817", "s" : "\u280e", "t" : "\u281e",
+    "u" : "\u2825", "v" : "\u2827", "w" : "\u283a", "x" : "\u282d", "y" : "\u283d",
+    "z" : "\u2835",
+    //"é" : "\u2811", "è" : "\u2811", "á" : "\u2801", "à" : "\u2801",
+
+    // numbers
+    "#" : "\u283c",
+    "1" : "\u2801", "2" : "\u2803", "3" : "\u2809", "4" : "\u2819", "5" : "\u2811",
+    "6" : "\u280b", "7" : "\u281b", "8" : "\u2813", "9" : "\u280a", "0" : "\u281a",
+
+    // punctuation
+    "," : "\u2802", ";" : "\u2806", ":" : "\u2812",
+    "." : "\u2832", "!" : "\u2816", "?" : "\u2826",
+    "*" : "\u2814", "_" : "\u2804", "-" : "\u2824",
+};
+
+function braille() {
+  isNum = false;
+  b = ""
+  var s = inp.innerText.toLowerCase()
+  s = s.replace("é", "e")
+  s = s.replace("è", "e")
+  for (i=0; i<s.length; i++) {
+    var c = s[i]
+    // insert a '#' before (leading) numbers
+    var reg = /^\d+$/;
+    var num = reg.test(c)
+    if (!isNum && num) {
+      b += "\u283c"
+    }
+    isNum = num
+    // replace letters with braille symbols
+    var z = dic[c]
+    if (z) {
+      b += z
+    } else {
+      if (c=='\n') b += "<br>" // render line breaks
+      else b += " "            // unknown
+    }
+  }
+  abc.innerHTML = b
+}
+</script>
+</head>
+<body onload="braille();" title="edit !">
+<div class="content">
+  <h2 id="inp" contenteditable="true">braille</h2>
+  <div fontsize=16 id="abc" halign="left"></div>
+</div>
+<div class="nav">
+<a href="vlad.html"> vlad descriptors </a><br>
+<a href="xowl.html"> xowl </a><br>
+<a href="one_shot.html"> one shot similarity </a><br>
+<a href="profile.html"> profiling opencv </a><br>
+<a href="pose.html"> openpose models </a><br>
+<a href="braille.html"> braille </a><br>
+<a href="fusion.html"> image fusion </a><br>
+<a href="music4.html"> music ! </a><br>
+<a href="printnet.html"> dnn print net </a><br>
+<a href="prolog.html"> owl positive </a><br>
+<a href="photo-stereo.html"> photometric stereo </a><br>
+</div>
+</body>
+<script>
+  inp.addEventListener("keyup", function(e) {  braille() })
+</script>
+
+</html>
