@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>standalone opencv tests</title>
+</head>
+<body>
+<div class=content>
+
+
+sometimes i need to build opencv unit tests outside the library building process, <br>
+you don't want to wait for the libs to rebuild or to wait for 50 other tests to finish before yours<br><p>
+
+you need to add the include path to the test headers (they're not installed !)<br>
+
+<div id="code"><pre style="color:#aaa;">
+-I opencv_src/modules/ts/include
+</div>
+and the path to cvconfig.h, that's in your build folder:
+
+<div id="code"><pre style="color:#aaa;">
+-I opencv_src/build
+</div>
+and link to opencv_ts .
+
+<hr>
+now, to run this without downloading the whole opencv_extra repo (and setting it up)<br>
+its also possible to use a local data folder structure, like:
+
+<div id="code"><pre style="color:#aaa;">
+C:\P\OPENCV_CONTRIB\MODULES\FACE\TEST
+└───cv
+    └───face
+</div>
+and configure an environment variable to point at it, (keeping the same directory structure as on the buildbots):
+
+<div id="code"><pre style="color:#aaa;">
+set OPENCV_TEST_DATA_PATH=C:\P\OPENCV_CONTRIB\MODULES\FACE\TEST
+</div>
+
+</div>
+<div class="nav">
+<a href="dnn_edge.html"> dnn edge detection </a><br>
+<a href="testing.html"> standalone opencv tests </a><br>
+<a href="3dsingle.html"> 3d from single images </a><br>
+<a href="dnn_face.html"> dnn face detection </a><br>
+<a href="headpose.html"> headpose </a><br>
+<a href="transfer.html"> transfer learning </a><br>
+<a href="vlad.html"> vlad descriptors </a><br>
+<a href="xowl.html"> xowl </a><br>
+<a href="one_shot.html"> one shot similarity </a><br>
+<a href="profile.html"> profiling opencv </a><br>
+<a href="pose.html"> openpose models </a><br>
+</div>
+</body>
+</html>
