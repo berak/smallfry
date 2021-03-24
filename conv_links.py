@@ -1,14 +1,15 @@
-from BeautifulSoup import BeautifulSoup
-soup = BeautifulSoup(open("nav.html".decode('utf-8') ,"r").read())
+#from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(open("nav.html" ,"r").read())
 tab = soup.findAll('a')
-print len(tab), "entries"
+print (len(tab), "entries")
 
 N=11;
 N2=int(N/2)
 i=0
 for t in tab:
 	print (t['href'])
-	fi = open(t['href'],"rb")
+	fi = open(t['href'],"r")
 	txt = fi.read()
 	fi.close()
 	start=i-N2
@@ -28,7 +29,7 @@ for t in tab:
 	htm += lnks
 	htm += txt[start+end:]
 	#print(htm)
-	fo = open(t['href'],"wb")
+	fo = open(t['href'],"w")
 	fo.write(htm)
 	fo.close()
 	i += 1

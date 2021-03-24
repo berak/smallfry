@@ -20,18 +20,18 @@
 		a[k+3]=255;k+=4}c.putImageData(e,0,0)},30);
   </pre></div>
 </div>
-<div class="nav">
-<a href="tts.html"> text to speech </a><br>
-<a href="mouse.html"> mouse recorder </a><br>
-<a href="roc.html"> roc curve </a><br>
-<a href="music2.html"> music ! </a><br>
-<a href="dog.html"> difference of gaussians </a><br>
-<a href="faces.html"> bored .. </a><br>
-<a href="ray.html"> ray march on </a><br>
-<a href="gba.html"> lost code </a><br>
-<a href="nautilus.html"> nautilus </a><br>
-<a href="dct.html"> dct feature compression </a><br>
-<a href="music3.html"> music ! </a><br>
+<div class="nav">
+<a href="tts.html"> text to speech </a><br>
+<a href="mouse.html"> mouse recorder </a><br>
+<a href="roc.html"> roc curve </a><br>
+<a href="music2.html"> music ! </a><br>
+<a href="dog.html"> difference of gaussians </a><br>
+<a href="faces.html"> bored .. </a><br>
+<a href="ray.html"> ray march on </a><br>
+<a href="gba.html"> lost code </a><br>
+<a href="nautilus.html"> nautilus </a><br>
+<a href="dct.html"> dct feature compression </a><br>
+<a href="music3.html"> music ! </a><br>
 </div>
 <script type="text/javascript">
 	C=document.getElementById("c");c=C.getContext("2d");w=C.width=C.height=128;e=c.getImageData(0,0,w,w);a=e.data;M=Math;A=M.abs;C=M.cos;S=M.sin;F=M.floor;Q=M.sqrt;Mi=M.min;Ma=M.max;w2=w/2;H=0.5;t=4; setInterval(function(){t+=0.05;T=t/5;U=C(T);V=S(T);D=4+(1+S(t*0.2))*4.5;B=H+H*U;for(m=k=0;m<w;m++)for(n=0;n<w;n++){y=p=0;z=t;x=T;f=1;i=(w2-n)*0.1;j=(w2-m)*0.1;u=j*U-i*V;v=j*V+i*U;l=Q(u*u+v*v+w);u/=l;v/=l;for(o=D/l;f>0.031&&p<15;){X=x-F(x)-H;Y=y-F(y)-H;Z=z-F(z)-H;I=Ma(Ma(A(X),A(Y)),A(Z))-A(V/4);d=Y*Y;b=Q(Z*Z+d);J=Mi(b,Q(d+2*X*X)-0.01);f=I*B+J*(1-B);x+=f*u;y+=f*v;z+=f*o;p++}p*=10;a[k+0]=A(o*11+22*S(U*z)/(0.1+V*V));a[k+1]=B*(100-z)+20*f*V/U;a[k+2]=200-p;a[k+3]=255;k+=4}c.putImageData(e,0,0)},30);
