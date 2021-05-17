@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href='style.css'>
+<title>weighted box fusion</title>
+</head>
+<body>
+<div class="content">
+  <h2>two classifiers are better than one</h2>
+	we can <a href="https://arxiv.org/pdf/1910.13302.pdf">fuse detection boxes from different models</a> ,<br> eg. 2 different yolo detectors, or even SSD against a flipped version<br> (test time data augmentation)<p><br>
+	<font color=green>wbf</font>
+	<font color=brown>nano</font>
+	<font color=blue>yolo4</font><p><br>
+	<img src="img/wbf4.jpg"></img>
+	<img src="img/wbf5.jpg"></img><p>
+	<img src="img/wbf7.jpg"></img>
+	<img src="img/wbf2.jpg"></img><p>
+	also errors (joined 2 different persons):<p>
+	<img src="img/wbf3.jpg"></img><p>
+
+<p><br>
+	in opencv/c++ it might look like this:<p>
+  <script src="https://gist.github.com/berak/c5d58315a332ba2bf3246b3ad2686c4c.js"></script>
+
+https://github.com/ZFTurbo/Weighted-Boxes-Fusion
+</div>
+<div class="nav">
+
+<a href="audio_landmarks.html"> facial landmarks from speech audio </a><br>
+
+<a href="boxfusion.html"> weighted box fusion </a><br>
+
+<a href="singledepth.html"> depth from a single image </a><br>
+
+<a href="dnn_edge.html"> dnn edge detection </a><br>
+
+<a href="testing.html"> standalone opencv tests </a><br>
+
+<a href="3dsingle.html"> 3d from single images </a><br>
+
+<a href="dnn_face.html"> dnn face detection </a><br>
+
+<a href="headpose.html"> headpose </a><br>
+
+<a href="transfer.html"> transfer learning </a><br>
+
+<a href="vlad.html"> vlad descriptors </a><br>
+
+<a href="xowl.html"> xowl </a><br>
+
+</div>
+</body>
+</html>
