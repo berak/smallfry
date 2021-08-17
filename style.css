@@ -20,7 +20,6 @@ a {
 a:hover {
     color:#22f;
 }
-
 body {
     margin-top: 45px;
     margin-bottom: 45px;
@@ -50,4 +49,14 @@ pre {
 	width: 180px;
 	font-size: 18px;
 	border: none;
+}
+.code1 {
+    font-family: Lucida;
+    font-size: 20px;
+    color:#663;
+}
+.code2 {
+    font-family: Lucida;
+    font-size: 17px;
+    color:#883;
 }
